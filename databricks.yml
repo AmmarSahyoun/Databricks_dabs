@@ -1,0 +1,18 @@
+bundle:
+  name: formula1-uc
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host:
+
+    prd:
+      mode: production
+      woekspace:
+        host: 
+        root_path:
+      run_as:
+        service_principal_name:
+

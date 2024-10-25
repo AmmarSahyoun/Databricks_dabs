@@ -1,0 +1,29 @@
+# Trigger on pushes to the main branch.
+# Authenticate with Azure using a service connection.
+# Deploy resources defined in an ARM template.
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '<Your-Service-Connection-Name>'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      echo "Deploying ARM templates..."
+      az deployment group create \
+        --resource-group <Your-Resource-Group-Name> \
+        --template-file <Path-to-your-ARM-template.json> \
+        --parameters <Path-to-your-parameters-file.json>
